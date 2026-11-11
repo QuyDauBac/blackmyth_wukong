@@ -1,0 +1,122 @@
+﻿@model WukongWeb.Models.ViewModels.AdminDashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+    <div>
+        <p class="eyebrow text-uppercase small text-muted mb-1">Management overview</p>
+        <h1 class="h3 mb-0">Dashboard</h1>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-warning btn-sm" href="@Url.Action("GameCreate", "Admin")">New game</a>
+        <a class="btn btn-outline-light btn-sm" href="@Url.Action("UserCreate", "Admin")">New account</a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="stat-card"><div class="stat-label">Accounts</div><div class="stat-value">@Model.UserCount</div></div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="stat-card"><div class="stat-label">Games</div><div class="stat-value">@Model.GameCount</div></div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value">@Model.OrderCount</div></div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="stat-card"><div class="stat-label">Paid revenue</div><div class="stat-value">₫@Model.Revenue.ToString("N0", culture)</div></div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card p-3 p-md-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">Recent orders</h2>
+                <a class="btn btn-outline-light btn-sm" href="@Url.Action("Orders", "Admin")">All orders</a>
+            </div>
+            @if (!Model.RecentOrders.Any())
+            {
+                <p class="text-muted mb-0">No orders yet. Place one from the public checkout page.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped mb-0">
+                        <thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Status</th><th class="text-end">Total</th></tr></thead>
+                        <tbody>
+                            @foreach (var order in Model.RecentOrders)
+                            {
+                                <tr>
+                                    <td>#@order.OrderId</td>
+                                    <td>@order.User.DisplayName</td>
+                                    <td>@order.OrderDate.ToLocalTime().ToString("dd/MM HH:mm")</td>
+                                    <td><span class="badge bg-success">@order.Status</span></td>
+                                    <td class="text-end">₫@order.TotalAmount.ToString("N0", culture)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card p-3 p-md-4 mb-4">
+            <h2 class="h5 mb-3">Top games by units sold</h2>
+            @if (!Model.TopGames.Any())
+            {
+                <p class="text-muted mb-0">No sales data yet.</p>
+            }
+            else
+            {
+                <table class="table table-sm mb-0">
+                    <thead><tr><th>Game</th><th class="text-end">Units</th><th class="text-end">Revenue</th></tr></thead>
+                    <tbody>
+                        @foreach (var row in Model.TopGames)
+                        {
+                            <tr>
+                                <td>@row.Title</td>
+                                <td class="text-end">@row.UnitsSold</td>
+                                <td class="text-end">₫@row.Revenue.ToString("N0", culture)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+
+        <div class="card p-3 p-md-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">Newsletter</h2>
+                <span class="badge bg-secondary">@Model.SubscriberCount</span>
+            </div>
+            @if (!Model.RecentSubscribers.Any())
+            {
+                <p class="text-muted mb-0 small">No subscriber yet. The footer form on the landing page writes into this table.</p>
+            }
+            else
+            {
+                <ul class="list-unstyled mb-0">
+                    @foreach (var subscriber in Model.RecentSubscribers)
+                    {
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary-subtle">
+                            <span class="small">@subscriber.Email</span>
+                            <span class="text-muted small">@subscriber.SubscribedAtUtc.ToLocalTime().ToString("dd/MM")</span>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+
+        <div class="card p-3 p-md-4">
+            <h2 class="h5 mb-3">Content</h2>
+            <p class="text-muted small">@Model.ReviewCount review(s) are stored in the database.</p>
+            <a class="btn btn-outline-light btn-sm" href="@Url.Action("Reviews", "Admin")">Moderate reviews</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@model WukongWeb.Models.ViewModels.GameEditViewModel
+
+@Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+<div class="row g-3">
+    <div class="col-md-8">
+        <label class="form-label" for="Title">Title</label>
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", maxlength = "160" })
+        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger small" })
+    </div>
+    <div class="col-md-4">
+        <label class="form-label" for="Slug">Slug</label>
+        @Html.TextBoxFor(m => m.Slug, new { @class = "form-control", maxlength = "160", placeholder = "black-myth-wukong" })
+        @Html.ValidationMessageFor(m => m.Slug, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label" for="CategoryId">Category</label>
+        @Html.DropDownListFor(m => m.CategoryId, Model.CategoryOptions, "Choose a category", new { @class = "form-select" })
+        @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger small" })
+    </div>
+    <div class="col-md-4">
+        <label class="form-label" for="Developer">Developer</label>
+        @Html.TextBoxFor(m => m.Developer, new { @class = "form-control", maxlength = "120" })
+        @Html.ValidationMessageFor(m => m.Developer, "", new { @class = "text-danger small" })
+    </div>
+    <div class="col-md-4">
+        <label class="form-label" for="Publisher">Publisher</label>
+        @Html.TextBoxFor(m => m.Publisher, new { @class = "form-control", maxlength = "120" })
+        @Html.ValidationMessageFor(m => m.Publisher, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label" for="ReleaseDate">Release date</label>
+        @Html.TextBoxFor(m => m.ReleaseDate, new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.ReleaseDate, "", new { @class = "text-danger small" })
+    </div>
+    <div class="col-md-4">
+        <label class="form-label" for="BasePrice">Base price (VND)</label>
+        @Html.TextBoxFor(m => m.BasePrice, new { @class = "form-control", type = "number", min = "0", step = "1000" })
+        @Html.ValidationMessageFor(m => m.BasePrice, "", new { @class = "text-danger small" })
+    </div>
+    <div class="col-md-4">
+        <label class="form-label" for="CoverImage">Cover image path</label>
+        @Html.TextBoxFor(m => m.CoverImage, new { @class = "form-control", maxlength = "255", placeholder = "assets/img_...jpg" })
+        @Html.ValidationMessageFor(m => m.CoverImage, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-12">
+        <label class="form-label" for="Description">Description</label>
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "4", maxlength = "4000" })
+        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-12">
+        <div class="form-check">
+            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input" })
+            <label class="form-check-label" for="IsActive">Active (visible in the public catalogue)</label>
+        </div>
+    </div>
+</div>

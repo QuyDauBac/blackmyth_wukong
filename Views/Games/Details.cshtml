@@ -1,0 +1,165 @@
+﻿@model WukongWeb.Models.ViewModels.GameDetailsViewModel
+@{
+    ViewBag.Title = Model.Game.Title;
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var cover = string.IsNullOrWhiteSpace(Model.Game.CoverImage)
+        ? Url.Content("~/assets/img_MbWeb_bg_introduce_1.871099bb.jpg")
+        : Url.Content("~/" + Model.Game.CoverImage);
+    var user = User;
+}
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card overflow-hidden">
+            <img src="@cover" alt="@Model.Game.Title cover art" class="w-100" style="aspect-ratio:16/9;object-fit:cover;">
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2 mb-2">
+                    <span class="badge bg-secondary">@Model.Game.Category.Name</span>
+                    <span class="badge bg-dark border border-secondary">@Model.Game.Developer</span>
+                </div>
+                <h1 class="h2">@Model.Game.Title</h1>
+                <p class="text-muted">@Model.Game.Description</p>
+                <dl class="row small mb-0">
+                    <dt class="col-sm-4">Publisher</dt><dd class="col-sm-8">@Model.Game.Publisher</dd>
+                    <dt class="col-sm-4">Release date</dt><dd class="col-sm-8">@(Model.Game.ReleaseDate.HasValue ? Model.Game.ReleaseDate.Value.ToString("dd/MM/yyyy") : "TBA")</dd>
+                    <dt class="col-sm-4">Base price</dt><dd class="col-sm-8 price-tag">₫@Model.Game.BasePrice.ToString("N0", culture)</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="card p-3 p-md-4 mt-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <h2 class="h5 mb-0">Editions</h2>
+                <span class="text-muted small">Each edition is a separate purchase.</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead><tr><th>Edition</th><th>Details</th><th class="text-end">Price</th><th class="text-end">Buy</th></tr></thead>
+                    <tbody>
+                        @foreach (var edition in Model.Editions)
+                        {
+                            var checkoutUrl = Url.Action("Index", "Checkout", new { editionId = edition.EditionId });
+                            var buyUrl = user.Identity.IsAuthenticated
+                                ? checkoutUrl
+                                : Url.Action("Login", "Account", new { returnUrl = checkoutUrl });
+                            <tr>
+                                <td>@edition.Name</td>
+                                <td class="text-muted">@edition.Description</td>
+                                <td class="text-end price-tag">₫@edition.Price.ToString("N0", culture)</td>
+                                <td class="text-end">
+                                    <a class="btn btn-warning btn-sm" href="@buyUrl">@(user.Identity.IsAuthenticated ? "Buy" : "Log in")</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (!Model.Editions.Any())
+            {
+                <p class="text-muted small mb-0 mt-3">No edition is on sale for this title right now.</p>
+            }
+        </div>
+
+        <div class="card p-3 p-md-4 mt-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <h2 class="h5 mb-0">Player reviews</h2>
+                <div class="rating-summary">
+                    <strong>@(Model.AverageRating.HasValue ? Model.AverageRating.Value.ToString("0.0") : "—")</strong>
+                    <span class="text-muted small">/ 5 · @Model.ReviewCount review(s)</span>
+                </div>
+            </div>
+
+            @if (!Model.Reviews.Any())
+            {
+                <p class="text-muted">No reviews yet.</p>
+            }
+            else
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <article class="py-2 border-bottom border-secondary-subtle">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong>@review.User.DisplayName</strong>
+                            <span class="stars">@(new string('\u2605', review.Rating))@(new string('\u2606', 5 - review.Rating))</span>
+                        </div>
+                        <p class="text-muted small mb-0">@review.Comment</p>
+                        <small class="text-muted">@review.CreatedAtUtc.ToLocalTime().ToString("dd/MM/yyyy")</small>
+                    </article>
+                }
+            }
+
+            @if (user.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm("AddReview", "Games", FormMethod.Post, new { @class = "mt-3" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="GameId" value="@Model.Game.GameId" />
+                    <h3 class="h6">@(Model.HasReviewed ? "Update your review" : "Write a review")</h3>
+                    <div class="row g-2">
+                        <div class="col-sm-3">
+                            <label class="form-label" for="Rating">Rating</label>
+                            <select class="form-select" id="Rating" name="Rating">
+                                @for (var rating = 5; rating >= 1; rating--)
+                                {
+                                    <option value="@rating" selected="@(Model.NewReview.Rating == rating)">@rating ★</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-9">
+                            <label class="form-label" for="Comment">Comment</label>
+                            <input class="form-control" id="Comment" name="Comment" maxlength="1000" placeholder="What did you think?" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-sm mt-3">Save review</button>
+                }
+            }
+            else
+            {
+                <p class="small text-muted mt-3 mb-0">
+                    <a href="@Url.Action("Login", "Account", new { returnUrl = Url.Action("Details", "Games", new { id = Model.Game.GameId }) })">Log in</a> to write a review.
+                </p>
+            }
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card p-3 p-md-4 mb-4">
+            <h2 class="h5 mb-3">Your options</h2>
+            @if (Model.Editions.Any())
+            {
+                var cheapest = Model.Editions.First();
+                var cheapestUrl = Url.Action("Index", "Checkout", new { editionId = cheapest.EditionId });
+                var cheapestHref = user.Identity.IsAuthenticated
+                    ? cheapestUrl
+                    : Url.Action("Login", "Account", new { returnUrl = cheapestUrl });
+                <a class="btn btn-warning w-100" href="@cheapestHref">Buy — @cheapest.Name</a>
+            }
+            @if (user.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm("ToggleWishlist", "Games", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="gameId" value="@Model.Game.GameId" />
+                    <button type="submit" class="btn btn-outline-light w-100 mt-2">
+                        @(Model.InWishlist ? "Remove from wishlist" : "Add to wishlist")
+                    </button>
+                }
+            }
+            else
+            {
+                <a class="btn btn-outline-light w-100 mt-2" href="@Url.Action("Login", "Account", new { returnUrl = Url.Action("Details", "Games", new { id = Model.Game.GameId }) })">Log in to use the wishlist</a>
+            }
+            <a class="btn btn-outline-light w-100 mt-2" href="@Url.Action("Index", "Games")">Back to catalogue</a>
+        </div>
+
+        <div class="card p-3 p-md-4">
+            <h2 class="h5 mb-3">About this entry</h2>
+            <p class="text-muted small mb-0">
+                This catalogue entry is stored in the <code>Games</code> table and joined to
+                <code>Categories</code>, <code>Editions</code>, <code>Reviews</code> and
+                <code>Wishlists</code>. The page is rendered by <code>GamesController.Details</code>.
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Something went wrong";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<div class="text-center py-5">
+    <p class="display-1 mb-0">⚡</p>
+    <h1 class="h3 mt-3">The journey was interrupted.</h1>
+    <p class="text-muted">The request could not be completed. Return to the site and try again.</p>
+    <a class="btn btn-warning" href="@Url.Action("Index", "Home")">Return home</a>
+</div>

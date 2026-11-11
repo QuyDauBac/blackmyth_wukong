@@ -1,0 +1,55 @@
+﻿@model WukongWeb.Models.ViewModels.UserEditViewModel
+@{
+    ViewBag.Title = "Edit account";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+    <div>
+        <p class="eyebrow text-uppercase small text-muted mb-1">Access management</p>
+        <h1 class="h3 mb-0">Edit account</h1>
+    </div>
+    <a class="btn btn-outline-light btn-sm" href="@Url.Action("Users", "Admin")">Back to accounts</a>
+</div>
+
+<div class="card p-3 p-md-4">
+    @using (Html.BeginForm("UserEdit", "Admin", new { id = Model.UserId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.UserId)
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label" for="DisplayName">Display name</label>
+                @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control", maxlength = "80" })
+                @Html.ValidationMessageFor(m => m.DisplayName, "", new { @class = "text-danger small" })
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="Email">Email</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", maxlength = "254" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="RoleId">Role</label>
+                @Html.DropDownListFor(m => m.RoleId, Model.RoleOptions, "Choose a role", new { @class = "form-select" })
+                @Html.ValidationMessageFor(m => m.RoleId, "", new { @class = "text-danger small" })
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+                <div class="form-check">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input" })
+                    <label class="form-check-label" for="IsActive">Account is active</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-warning">Save changes</button>
+            <a class="btn btn-outline-light" href="@Url.Action("Users", "Admin")">Cancel</a>
+        </div>
+    }
+</div>
+
+@section scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}

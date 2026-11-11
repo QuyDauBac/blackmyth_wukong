@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080807">
+  <meta name="description" content="A cinematic study recreation of the Black Myth: Wukong landing page.">
+  <title>Black Myth: Wukong — Game Science</title>
+  <link rel="preload" href="assets/CrimsonPro-Regular.9278c3fe.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#screen-hero">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <nav class="side-nav" id="side-nav" aria-label="Main navigation">
+    <a class="is-active" href="#screen-hero" data-screen-target="0">Home</a>
+    <a href="#screen-awards" data-screen-target="1">Awards</a>
+    <a href="#screen-overview" data-screen-target="2">Overview</a>
+    <a href="#screen-media" data-screen-target="3">Media</a>
+    <a href="#screen-footer" data-screen-target="4">Player support <span aria-hidden="true">↗</span></a>
+  </nav>
+  <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="side-nav" aria-label="Open navigation"><span></span><span></span></button>
+
+  <div class="brand-stamp" aria-label="Game Science">
+    <img class="brand-stamp__studio" src="assets/img_logo_gs_EN.983d748d.png" alt="Game Science">
+    <img class="brand-stamp__myth" src="assets/slogon-en.223a2efb.png" alt="">
+  </div>
+  <div class="top-actions">
+    <button class="account-trigger" id="account-trigger" type="button">Log in / Register</button>
+  </div>
+
+  <nav class="screen-dots" aria-label="Screen navigation">
+    <button class="screen-dot is-active" type="button" data-screen-target="0" aria-label="Go to Home" aria-current="step"><span></span></button>
+    <button class="screen-dot" type="button" data-screen-target="1" aria-label="Go to Awards"><span></span></button>
+    <button class="screen-dot" type="button" data-screen-target="2" aria-label="Go to Overview"><span></span></button>
+    <button class="screen-dot" type="button" data-screen-target="3" aria-label="Go to Media"><span></span></button>
+    <button class="screen-dot" type="button" data-screen-target="4" aria-label="Go to Footer"><span></span></button>
+  </nav>
+
+  <main class="page-viewport" id="page-viewport">
+    <div class="page-track" id="page-track">
+      <section class="screen screen-hero is-active" id="screen-hero" data-screen="0" aria-label="Black Myth: Wukong">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/img_MbWeb_bg_introduce_1.871099bb.jpg" aria-hidden="true"><source src="media/title-loop.mp4" type="video/mp4"></video>
+        <div class="hero-shade"></div>
+        <p class="hero-studio">GAME SCIENCE</p>
+        <img class="hero-logo" src="assets/phone-en-logo.4bbe2178.png" alt="Black Myth: Wukong">
+        <div class="hero-copy">
+          <p class="eyebrow">An action RPG inspired by Journey to the West</p>
+          <h1>Confront<br><em>destiny.</em></h1>
+          <button class="paper-button" type="button" data-screen-target="2"><span>Explore the journey</span><b aria-hidden="true">↘</b></button>
+        </div>
+        <a class="hero-scroll" href="#screen-awards" data-screen-target="1"><span>Scroll to discover</span><i></i></a>
+        <div class="hero-seal" aria-hidden="true">悟空</div>
+      </section>
+
+      <section class="screen screen-awards" id="screen-awards" data-screen="1" aria-labelledby="awards-title" aria-hidden="true">
+        <div class="screen-texture"></div>
+        <div class="awards-content">
+          <p class="eyebrow">A journey recognized</p>
+          <h2 id="awards-title">Awards &amp; <em>acclaim</em></h2>
+          <div class="awards-ribbon" aria-label="Awards">
+            <article class="award-badge"><img src="assets/img_awards_steam2024_default.10ffb7ee.png" loading="lazy" alt=""><span>Labor of Love</span></article>
+            <article class="award-badge"><img src="assets/img_awards_tga2024playersvoice_default.8199acb5.png" loading="lazy" alt=""><span>Players' Voice</span></article>
+            <article class="award-badge"><img src="assets/img_awards_tga2024bestaction_default.0940c235.png" loading="lazy" alt=""><span>Best Action Game</span></article>
+          </div>
+          <div class="score-grid" aria-label="Review scores">
+            <article class="score-item"><strong>10</strong><span>/10</span><small>3DM</small></article>
+            <article class="score-item"><strong>9</strong><span>/10</span><small>IGN</small></article>
+            <article class="score-item"><strong>9.8</strong><span>/10</span><small>A9VG</small></article>
+            <article class="score-item"><strong>9.3</strong><span>/10</span><small>GamesRadar</small></article>
+            <article class="score-item"><strong>10</strong><span>/10</span><small>GameRant</small></article>
+            <article class="score-item"><strong>9.5</strong><span>/10</span><small>Players</small></article>
+          </div>
+        </div>
+        <img class="awards-bg" src="assets/praise_bottom_bg.f26e212f.png" alt="" aria-hidden="true">
+      </section>
+
+      <section class="screen screen-overview" id="screen-overview" data-screen="2" aria-label="Game overview" aria-hidden="true">
+        <div class="overview-backdrop"></div>
+        <div class="overview-slides" id="overview-slides">
+          <article class="overview-slide is-active" data-overview-slide="0" aria-hidden="false">
+            <div class="overview-copy">
+              <p class="eyebrow">01 / A world beyond the scroll</p>
+              <h2>Diverse<br><em>levels</em></h2>
+              <p>Explore a land of vast wonders. Relive the tale of <em>Journey to the West</em>, rewriting a mythical legend one step at a time.</p>
+              <button class="video-teaser" type="button" data-open-media="0"><img src="assets/img_art_video_1.431a2a74.png" loading="lazy" alt="A glimpse of the journey"><span class="play-icon" aria-hidden="true">▶</span><span class="video-teaser__label">Watch the trailer</span></button>
+            </div>
+            <div class="overview-character"><img src="assets/img_MbWeb_bg_introduce_1.871099bb.jpg" loading="lazy" alt="The Destined One overlooking a distant world"></div>
+          </article>
+          <article class="overview-slide" data-overview-slide="1" aria-hidden="true">
+            <div class="overview-copy">
+              <p class="eyebrow">02 / The road is never empty</p>
+              <h2>Tough<br><em>yaoguais</em></h2>
+              <p>Confront mighty foes, old and new. Challenge extraordinary adversaries and clash with <em>legends of yore</em>.</p>
+              <button class="video-teaser" type="button" data-open-media="1"><img src="assets/img_art_video_2.479826b5.png" loading="lazy" alt="A glimpse of an encounter"><span class="play-icon" aria-hidden="true">▶</span><span class="video-teaser__label">Watch the trailer</span></button>
+            </div>
+            <div class="overview-character"><img src="assets/img_MbWeb_bg_introduce_2.fae41d6a.jpg" loading="lazy" alt="A formidable mythical opponent"></div>
+          </article>
+          <article class="overview-slide" data-overview-slide="2" aria-hidden="true">
+            <div class="overview-copy">
+              <p class="eyebrow">03 / Shape the legend</p>
+              <h2>Vast<br><em>variations</em></h2>
+              <p>Combine your spells and abilities. Tailor your talents and unleash <em>your own path</em> through each encounter.</p>
+              <button class="video-teaser" type="button" data-open-media="2"><img src="assets/img_art_video_3.c243b5a0.png" loading="lazy" alt="A glimpse of the combat"><span class="play-icon" aria-hidden="true">▶</span><span class="video-teaser__label">Watch the trailer</span></button>
+            </div>
+            <div class="overview-character"><img src="assets/img_MbWeb_bg_introduce_3.7cdc5d9c.jpg" loading="lazy" alt="A mythical figure in a shadowed landscape"></div>
+          </article>
+          <article class="overview-slide" data-overview-slide="3" aria-hidden="true">
+            <div class="overview-copy">
+              <p class="eyebrow">04 / Every face holds a story</p>
+              <h2>A tale<br><em>retold</em></h2>
+              <p>Discover heartfelt tales behind every façade. Taste the love, hate, greed, and fury they <em>still carry within</em>.</p>
+              <button class="video-teaser" type="button" data-open-media="3"><img src="assets/img_art_video_4.2c352fb9.png" loading="lazy" alt="A glimpse of a story"><span class="play-icon" aria-hidden="true">▶</span><span class="video-teaser__label">Watch the trailer</span></button>
+            </div>
+            <div class="overview-character"><img src="assets/img_MbWeb_bg_introduce_4.19072138.jpg" loading="lazy" alt="A character from a forgotten tale"></div>
+          </article>
+        </div>
+        <div class="overview-controls" aria-label="Overview slides">
+          <button class="overview-arrow" id="overview-prev" type="button" aria-label="Previous overview">←</button>
+          <span id="overview-count">01 <i>/</i> 04</span>
+          <button class="overview-arrow" id="overview-next" type="button" aria-label="Next overview">→</button>
+        </div>
+      </section>
+
+      <section class="screen screen-media" id="screen-media" data-screen="3" aria-labelledby="media-title" aria-hidden="true">
+        <div class="media-backdrop"></div>
+        <div class="media-heading"><p class="eyebrow">Witness the myth</p><h2 id="media-title">Media <em>library</em></h2></div>
+        <div class="media-player-wrap">
+          <video class="media-player" id="media-player" controls playsinline preload="none" poster="assets/img_art_video_1.431a2a74.png" aria-label="Black Myth: Wukong trailer"><source src="media/trailer-pv07.mp4" type="video/mp4"></video>
+          <div class="media-player-overlay" id="media-player-overlay"><button type="button" id="media-play" class="media-play" aria-label="Play selected trailer">▶</button><span id="media-current-title">The journey begins</span></div>
+        </div>
+        <div class="media-thumbnails" id="media-thumbnails" aria-label="Choose a media preview">
+          <button class="media-thumb is-active" type="button" data-media-index="0" aria-label="Select The journey begins"><img src="assets/img_art_video_1.431a2a74.png" loading="lazy" alt=""><span>The journey begins</span></button>
+          <button class="media-thumb" type="button" data-media-index="1" aria-label="Select The Destined One"><img src="assets/img_art_video_2.479826b5.png" loading="lazy" alt=""><span>The Destined One</span></button>
+          <button class="media-thumb" type="button" data-media-index="2" aria-label="Select A world of wonders"><img src="assets/img_art_video_3.c243b5a0.png" loading="lazy" alt=""><span>A world of wonders</span></button>
+          <button class="media-thumb" type="button" data-media-index="3" aria-label="Select A legendary foe"><img src="assets/img_art_video_4.2c352fb9.png" loading="lazy" alt=""><span>A legendary foe</span></button>
+          <button class="media-thumb" type="button" data-media-index="4" aria-label="Select Stories untold"><img src="assets/img_art_video_5.2059e501.png" loading="lazy" alt=""><span>Stories untold</span></button>
+        </div>
+        <div class="media-counter"><span id="media-count">01</span><span>/</span><span>05</span><span class="media-counter__note">Select a frame to explore</span></div>
+      </section>
+
+      <section class="screen screen-footer" id="screen-footer" data-screen="4" aria-label="Game Science links and footer" aria-hidden="true">
+        <div class="footer-backdrop"></div>
+        <div class="footer-visual">
+          <video class="footer-video" muted loop playsinline preload="none" poster="assets/img_art_video_4.2c352fb9.png"><source src="media/title-loop.mp4" type="video/mp4"></video>
+          <div class="footer-video-shade"></div>
+          <button class="footer-play" type="button" data-open-media="0" aria-label="Open the trailer">▶</button>
+        </div>
+        <div class="footer-thumb-strip" aria-label="Featured images">
+          <img src="assets/img_art_video_5.2059e501.png" loading="lazy" alt="A shadowed mountain path">
+          <img src="assets/img_art_video_6.0c16dc32.png" loading="lazy" alt="A mysterious temple">
+          <img src="assets/img_art_video_8.11a5071b.png" loading="lazy" alt="A distant encounter">
+          <img src="assets/img_MbWeb_bg_introduce_3.7cdc5d9c.jpg" loading="lazy" alt="A scene from the journey">
+          <img src="assets/img_MbWeb_bg_introduce_4.19072138.jpg" loading="lazy" alt="A tale waiting to be told">
+        </div>
+        <div class="footer-main">
+          <div class="footer-brand"><img src="assets/img_logo_gs_EN.983d748d.png" alt="Game Science"><span>Independent game developer</span></div>
+          <div class="footer-links"><a href="https://gamesci.cn" target="_blank" rel="noreferrer">About us</a><a href="https://gamesci.cn" target="_blank" rel="noreferrer">Business</a><a href="https://gamesci.cn" target="_blank" rel="noreferrer">Privacy policy</a></div>
+          <div class="footer-social" aria-label="Social media"><a href="https://www.youtube.com/@GameScience" target="_blank" rel="noreferrer" aria-label="YouTube">▶</a><a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="X">𝕏</a><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">f</a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">◎</a></div>
+          <button class="subscribe-button" id="subscribe-button" type="button">Subscribe now</button>
+          <div class="footer-bottom"><span>© Game Science Interactive Technology Co., Ltd.</span><span>Recreated for web programming study</span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <button class="buy-floating" type="button" id="buy-floating"><span>Buy now</span><b aria-hidden="true">↗</b></button>
+  <div class="language-control">
+    <button class="language-toggle" id="language-toggle" type="button" aria-expanded="false" aria-controls="language-menu" aria-label="Choose language">EN <span aria-hidden="true">⌄</span></button>
+    <div class="language-menu" id="language-menu" hidden><button type="button" data-language="English">English</button><button type="button" data-language="简体中文">简体中文</button><button type="button" data-language="繁體中文">繁體中文</button><button type="button" data-language="日本語">日本語</button></div>
+  </div>
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookie notice"><p>This website uses cookies to improve your browsing experience. <a href="#screen-footer" data-screen-target="4">Learn more</a></p><button type="button" id="cookie-accept">OK</button></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="purchase-options" id="purchase-options" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="purchase-options-title">
+    <button class="purchase-options__close" id="purchase-options-close" type="button" aria-label="Close purchase options">×</button>
+    <div class="purchase-options__panel">
+      <p class="eyebrow">Choose your path</p>
+      <h2 id="purchase-options-title">Begin your <em>journey.</em></h2>
+      <p class="purchase-options__intro">Choose where you want to get the game.</p>
+      <button class="purchase-option" id="buy-on-web" type="button"><span class="purchase-option__number">01</span><span><strong>Buy on this website</strong><small>Continue to the study checkout</small></span><b aria-hidden="true">↗</b></button>
+      <a class="purchase-option" href="https://store.steampowered.com/app/2358720/Black_Myth_Wukong/" target="_blank" rel="noopener noreferrer"><span class="purchase-option__number">02</span><span><strong>Open Steam</strong><small>Visit the Steam store page</small></span><b aria-hidden="true">↗</b></a>
+      <p class="purchase-options__note">Website checkout is a coursework demo. It does not charge real money.</p>
+    </div>
+  </div>
+
+  <div class="account-modal" id="account-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="account-title">
+    <button class="account-close" id="account-close" type="button" aria-label="Close account window">×</button>
+    <div class="account-panel">
+      <p class="eyebrow">Your journey</p>
+      <h2 id="account-title">Welcome, <em>Destined One.</em></h2>
+      <div class="account-tabs" role="tablist" aria-label="Account access">
+        <button class="account-tab is-active" type="button" role="tab" aria-selected="true" data-mode="login">Log in</button>
+        <button class="account-tab" type="button" role="tab" aria-selected="false" data-mode="register">Create account</button>
+      </div>
+      <form id="account-form" novalidate>
+        <label class="account-field register-only" for="account-name">Display name</label>
+        <input class="account-input register-only" id="account-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Your name" hidden>
+        <label class="account-field" for="account-email">Email</label>
+        <input class="account-input" id="account-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="name@example.com" required>
+        <label class="account-field" for="account-password">Password</label>
+        <input class="account-input" id="account-password" name="password" type="password" autocomplete="current-password" minlength="10" placeholder="At least 10 characters" required>
+        <label class="account-field register-only" for="account-confirm">Confirm password</label>
+        <input class="account-input register-only" id="account-confirm" name="confirm" type="password" autocomplete="new-password" minlength="10" placeholder="Enter the password again" hidden>
+        <button class="account-submit" type="submit">Log in</button>
+        <p class="account-message" id="account-message" role="status" aria-live="polite"></p>
+      </form>
+      <div class="account-signed-in" id="account-signed-in" hidden><p id="account-welcome">You are signed in.</p><button class="account-submit account-logout" id="account-logout" type="button">Sign out</button></div>
+      <p class="account-footnote">Account details are written to SQL Server; passwords are stored as salted hashes.</p>
+    </div>
+  </div>
+</body>
+</html>
+
+

@@ -1,0 +1,85 @@
+﻿@model WukongWeb.Models.ViewModels.CheckoutViewModel
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_CheckoutLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var cover = string.IsNullOrWhiteSpace(Model.Game.CoverImage)
+        ? Url.Content("~/assets/img_art_video_1.431a2a74.png")
+        : Url.Content("~/" + Model.Game.CoverImage);
+}
+
+<div class="checkout-shell">
+    <header class="checkout-topbar">
+        <a class="checkout-brand" href="@Url.Action("Index", "Home")" aria-label="Back to home">
+            <img src="@Url.Content("~/assets/img_logo_gs_EN.983d748d.png")" alt="Game Science"><span>STUDY EDITION</span>
+        </a>
+        <a class="checkout-back" href="@Url.Action("Index", "Home")">← <span>Back to the journey</span></a>
+    </header>
+
+    <main class="checkout-layout">
+        <section class="checkout-main" aria-labelledby="checkout-title">
+            <p class="eyebrow">A new chapter awaits</p>
+            <h1 id="checkout-title">Complete your <em>journey.</em></h1>
+            <p class="checkout-lead">Review your order and confirm the demo checkout.</p>
+
+            <div class="checkout-account">
+                <span class="checkout-account__mark" aria-hidden="true">✓</span>
+                <span><small>Signed in as</small><strong id="checkout-email">@Model.Email</strong></span>
+                <a href="@Url.Action("Profile", "Account")">Change</a>
+            </div>
+
+            <form id="checkout-form">
+                <input type="hidden" id="checkout-edition" name="editionId" value="@Model.Edition.EditionId">
+                <fieldset class="payment-choice">
+                    <legend>Payment method</legend>
+                    <label class="payment-choice__row">
+                        <input type="radio" name="payment" value="demo" checked>
+                        <span class="payment-choice__radio" aria-hidden="true"></span>
+                        <span><strong>Demo payment</strong><small>For coursework only — no real charge</small></span>
+                        <span class="payment-choice__badge">TEST</span>
+                    </label>
+                </fieldset>
+                <p class="checkout-disclaimer">This is a simulated checkout for a web programming project. It does not connect to a bank or payment provider. Do not enter card details.</p>
+                <button class="checkout-submit" id="checkout-submit" type="submit"><span>Confirm demo checkout</span><b aria-hidden="true">↗</b></button>
+                <p class="checkout-error" id="checkout-error" role="status" aria-live="polite"></p>
+            </form>
+
+            <section class="checkout-receipt" id="checkout-receipt" hidden aria-live="polite">
+                <span class="checkout-receipt__seal" aria-hidden="true">✓</span>
+                <p class="eyebrow">Demo order saved</p>
+                <h2>Your journey <em>begins.</em></h2>
+                <p>The demo purchase has been saved to the project database.</p>
+                <dl>
+                    <div><dt>Order number</dt><dd id="receipt-id"></dd></div>
+                    <div><dt>Status</dt><dd>Paid · Demo</dd></div>
+                </dl>
+                <a class="checkout-back-home" id="receipt-link" href="@Url.Action("Profile", "Account")">View your orders</a>
+            </section>
+        </section>
+
+        <aside class="order-card" aria-label="Order summary">
+            <div class="order-card__image">
+                <img src="@cover" alt="@Model.Game.Title game artwork">
+                <span>THE DESTINED ONE</span>
+            </div>
+            <div class="order-card__body">
+                <p class="eyebrow">Order summary</p>
+                <h2>@Model.Game.Title</h2>
+                <p class="order-edition">@Model.Edition.Name · Digital</p>
+                <div class="order-line"><span>Study demo price</span><strong>₫@Model.Edition.Price.ToString("N0", culture)</strong></div>
+                <div class="order-line order-line--total"><span>Total</span><strong>₫@Model.Total.ToString("N0", culture)</strong></div>
+                <p class="order-note">The displayed amount is a sample value for the demo. No money will be collected.</p>
+                <a class="order-change" href="@Url.Action("Details", "Games", new { id = Model.Game.GameId })">Change edition</a>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="checkout-footer">
+        <span>BLACK MYTH: WUKONG · STUDY PROJECT</span>
+        <a href="@Url.Action("Index", "Home")">Return to home</a>
+    </footer>
+</div>
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/checkout.js")" defer></script>
+}

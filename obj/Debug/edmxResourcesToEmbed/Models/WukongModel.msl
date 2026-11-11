@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WukongWebModelsStoreContainer" CdmEntityContainer="WukongEntities">
+    <EntitySetMapping Name="Awards">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Award">
+        <MappingFragment StoreEntitySet="Awards">
+          <ScalarProperty Name="AwardId" ColumnName="AwardId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="AwardYear" ColumnName="AwardYear" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Editions">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Edition">
+        <MappingFragment StoreEntitySet="Editions">
+          <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Games">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Game">
+        <MappingFragment StoreEntitySet="Games">
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Developer" ColumnName="Developer" />
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+          <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
+          <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedAtUtc" ColumnName="CreatedAtUtc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MediaAssets">
+      <EntityTypeMapping TypeName="WukongWeb.Models.MediaAsset">
+        <MappingFragment StoreEntitySet="MediaAssets">
+          <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewsletterSubscribers">
+      <EntityTypeMapping TypeName="WukongWeb.Models.NewsletterSubscriber">
+        <MappingFragment StoreEntitySet="NewsletterSubscribers">
+          <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="SubscribedAtUtc" ColumnName="SubscribedAtUtc" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="WukongWeb.Models.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetails">
+          <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Review">
+        <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CreatedAtUtc" ColumnName="CreatedAtUtc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="WukongWeb.Models.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedAtUtc" ColumnName="CreatedAtUtc" />
+          <ScalarProperty Name="LastLoginAtUtc" ColumnName="LastLoginAtUtc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wishlists">
+      <EntityTypeMapping TypeName="WukongWeb.Models.Wishlist">
+        <MappingFragment StoreEntitySet="Wishlists">
+          <ScalarProperty Name="WishlistId" ColumnName="WishlistId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="AddedAtUtc" ColumnName="AddedAtUtc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

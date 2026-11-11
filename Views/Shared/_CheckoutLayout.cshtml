@@ -1,0 +1,19 @@
+﻿<!doctype html>
+<html lang="en" class="checkout-document">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080807">
+    <meta name="description" content="Demo checkout for the Black Myth: Wukong web programming study project.">
+    <title>@(ViewBag.Title ?? "Checkout") — Black Myth: Wukong Study</title>
+    <link rel="preload" href="@Url.Content("~/assets/CrimsonPro-Regular.9278c3fe.woff2")" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="@Url.Content("~/Content/styles.css")?v=5">
+    <link rel="stylesheet" href="@Url.Content("~/Content/checkout.css")?v=3">
+    @RenderSection("styles", required: false)
+</head>
+<body class="checkout-page">
+    <form id="csrf-form" hidden>@Html.AntiForgeryToken()</form>
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

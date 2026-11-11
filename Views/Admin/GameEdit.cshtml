@@ -1,0 +1,30 @@
+﻿@model WukongWeb.Models.ViewModels.GameEditViewModel
+@{
+    ViewBag.Title = "Edit game";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+    <div>
+        <p class="eyebrow text-uppercase small text-muted mb-1">Catalogue management</p>
+        <h1 class="h3 mb-0">Edit game</h1>
+    </div>
+    <a class="btn btn-outline-light btn-sm" href="@Url.Action("Games", "Admin")">Back to games</a>
+</div>
+
+<div class="card p-3 p-md-4">
+    @using (Html.BeginForm("GameEdit", "Admin", new { id = Model.GameId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.GameId)
+        @Html.Partial("_GameForm", Model)
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-warning">Save changes</button>
+            <a class="btn btn-outline-light" href="@Url.Action("Games", "Admin")">Cancel</a>
+        </div>
+    }
+</div>
+
+@section scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}

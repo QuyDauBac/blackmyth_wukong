@@ -1,0 +1,143 @@
+﻿@model WukongWeb.Models.ViewModels.ProfilePageViewModel
+@{
+    ViewBag.Title = "My account";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+    <div>
+        <p class="eyebrow text-uppercase small text-muted mb-1">Your journey</p>
+        <h1 class="h2 mb-0">My <em class="text-warning">account</em></h1>
+    </div>
+    <a class="btn btn-outline-light btn-sm" href="@Url.Action("Index", "Games")">Browse the catalogue</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card p-3 p-md-4 mb-4">
+            <h2 class="h5 mb-3">Profile</h2>
+            @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label class="form-label" for="DisplayName">Display name</label>
+                    @Html.TextBox("DisplayName", Model.Profile.DisplayName, new { @class = "form-control", id = "DisplayName", required = "required", maxlength = "80" })
+                    @Html.ValidationMessage("DisplayName", "", new { @class = "text-danger small" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="Email">Email</label>
+                    @Html.TextBox("Email", Model.Profile.Email, new { @class = "form-control", id = "Email", type = "email", required = "required", maxlength = "254" })
+                    @Html.ValidationMessage("Email", "", new { @class = "text-danger small" })
+                </div>
+                <button type="submit" class="btn btn-warning btn-sm">Save profile</button>
+            }
+        </div>
+
+        <div class="card p-3 p-md-4">
+            <h2 class="h5 mb-3">Change password</h2>
+            @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label class="form-label" for="CurrentPassword">Current password</label>
+                    @Html.Password("CurrentPassword", null, new { @class = "form-control", id = "CurrentPassword", autocomplete = "current-password", required = "required" })
+                    @Html.ValidationMessage("CurrentPassword", "", new { @class = "text-danger small" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="NewPassword">New password</label>
+                    @Html.Password("NewPassword", null, new { @class = "form-control", id = "NewPassword", autocomplete = "new-password", required = "required", minlength = "10" })
+                    @Html.ValidationMessage("NewPassword", "", new { @class = "text-danger small" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="ConfirmPassword">Confirm new password</label>
+                    @Html.Password("ConfirmPassword", null, new { @class = "form-control", id = "ConfirmPassword", autocomplete = "new-password", required = "required", minlength = "10" })
+                    @Html.ValidationMessage("ConfirmPassword", "", new { @class = "text-danger small" })
+                </div>
+                <button type="submit" class="btn btn-warning btn-sm">Change password</button>
+            }
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card p-3 p-md-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">Orders</h2>
+                <span class="badge bg-secondary">@Model.Orders.Count</span>
+            </div>
+            @if (!Model.Orders.Any())
+            {
+                <p class="text-muted mb-0">You have not placed an order yet.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped mb-0">
+                        <thead>
+                            <tr><th>Order</th><th>Date</th><th>Status</th><th class="text-end">Total</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.Orders)
+                            {
+                                <tr>
+                                    <td>#@order.OrderId</td>
+                                    <td>@order.OrderDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td><span class="badge bg-success">@order.Status</span></td>
+                                    <td class="text-end price-tag">₫@order.TotalAmount.ToString("N0", culture)</td>
+                                    <td class="text-end"><a class="btn btn-outline-light btn-sm" href="@Url.Action("Receipt", "Checkout", new { id = order.OrderId })">Receipt</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        <div class="card p-3 p-md-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">Wishlist</h2>
+                <a class="btn btn-outline-light btn-sm" href="@Url.Action("Wishlist", "Games")">Open wishlist</a>
+            </div>
+            @if (!Model.Wishlist.Any())
+            {
+                <p class="text-muted mb-0">Your wishlist is empty.</p>
+            }
+            else
+            {
+                <ul class="list-unstyled mb-0">
+                    @foreach (var game in Model.Wishlist)
+                    {
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary-subtle">
+                            <a href="@Url.Action("Details", "Games", new { id = game.GameId })">@game.Title</a>
+                            <span class="price-tag">₫@game.BasePrice.ToString("N0", culture)</span>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+
+        <div class="card p-3 p-md-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">My reviews</h2>
+                <span class="badge bg-secondary">@Model.Reviews.Count</span>
+            </div>
+            @if (!Model.Reviews.Any())
+            {
+                <p class="text-muted mb-0">You have not reviewed a game yet.</p>
+            }
+            else
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <article class="py-2 border-bottom border-secondary-subtle">
+                        <div class="d-flex justify-content-between">
+                            <a href="@Url.Action("Details", "Games", new { id = review.GameId })">@review.Game.Title</a>
+                            <span class="stars">@(new string('\u2605', review.Rating))@(new string('\u2606', 5 - review.Rating))</span>
+                        </div>
+                        <p class="text-muted small mb-0">@review.Comment</p>
+                    </article>
+                }
+            }
+        </div>
+    </div>
+</div>

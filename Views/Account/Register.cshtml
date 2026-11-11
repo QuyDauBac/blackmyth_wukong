@@ -1,0 +1,54 @@
+﻿@model WukongWeb.Models.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Create account";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+        <p class="eyebrow text-uppercase small text-muted mb-2">Begin your journey</p>
+        <h1>Create an <em>account.</em></h1>
+        <p class="text-muted mt-2">Your account is stored in SQL Server. Passwords are saved as salted PBKDF2 hashes.</p>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "mt-4", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.DisplayName, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control", autocomplete = "name", maxlength = "80", placeholder = "Your name" })
+                @Html.ValidationMessageFor(m => m.DisplayName, "", new { @class = "text-danger small" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", autocomplete = "email", placeholder = "name@example.com" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "new-password", placeholder = "At least 10 characters" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "new-password", placeholder = "Enter the password again" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100">Create account</button>
+        }
+
+        <p class="mt-3 mb-0 small text-muted">
+            Already have an account? <a href="@Url.Action("Login", "Account")">Log in</a>.
+        </p>
+    </div>
+</div>
+
+@section scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}

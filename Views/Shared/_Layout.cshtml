@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080807">
+    <meta name="description" content="A cinematic study recreation of the Black Myth: Wukong landing page.">
+    <title>Black Myth: Wukong — Game Science</title>
+    <link rel="preload" href="@Url.Content("~/assets/CrimsonPro-Regular.9278c3fe.woff2")" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="@Url.Content("~/Content/styles.css")?v=5">
+    <script>window.WUKONG_BASE="@Url.Content("~/")";</script>
+    <script src="@Url.Content("~/Scripts/app.js")?v=5" defer></script>
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    @* The landing-page modal posts to MVC actions; the token is read by app.js. *@
+    <form id="csrf-form" hidden>@Html.AntiForgeryToken()</form>
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

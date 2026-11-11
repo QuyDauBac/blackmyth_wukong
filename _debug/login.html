@@ -1,0 +1,18 @@
+﻿<!doctype html><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}iframe{width:1366px;height:1000px;border:0;display:block}</style>
+<iframe id="f" src="/Account/Login"></iframe>
+<script>
+var f=document.getElementById('f');
+var to=new URLSearchParams(location.search).get('to')||'/Account/Profile';
+f.onload=function(){
+  var d; try{ d=f.contentDocument; }catch(e){ return; }
+  if(!d) return;
+  var form=d.querySelector('form[action*="Login"]');
+  if(form && d.querySelector('#Email')){
+    d.querySelector('#Email').value='admin@wukong.local';
+    d.querySelector('#Password').value='Admin@12345';
+    form.submit();
+    setTimeout(function(){ f.src=to; },2500);
+  }
+};
+</script>

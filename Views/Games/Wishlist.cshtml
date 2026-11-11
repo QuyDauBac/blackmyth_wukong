@@ -1,0 +1,56 @@
+﻿@model WukongWeb.Models.ViewModels.WishlistViewModel
+@{
+    ViewBag.Title = "Wishlist";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+@functions {
+    string Cover(WukongWeb.Models.Game game)
+    {
+        return string.IsNullOrWhiteSpace(game.CoverImage)
+            ? Url.Content("~/assets/img_MbWeb_bg_introduce_1.871099bb.jpg")
+            : Url.Content("~/" + game.CoverImage);
+    }
+}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+    <div>
+        <p class="eyebrow text-uppercase small text-muted mb-1">Saved for later</p>
+        <h1 class="h2 mb-0">My <em class="text-warning">wishlist</em></h1>
+    </div>
+    <a class="btn btn-outline-light btn-sm" href="@Url.Action("Index", "Games")">Browse the catalogue</a>
+</div>
+
+@if (!Model.Games.Any())
+{
+    <div class="card p-4 text-center">
+        <p class="mb-2">Your wishlist is empty.</p>
+        <a class="btn btn-warning btn-sm" href="@Url.Action("Index", "Games")">Find a game</a>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var game in Model.Games)
+        {
+            <div class="col-sm-6 col-lg-4">
+                <article class="card game-card">
+                    <a href="@Url.Action("Details", "Games", new { id = game.GameId })">
+                        <img src="@Cover(game)" alt="@game.Title cover art" loading="lazy">
+                    </a>
+                    <div class="card-body">
+                        <h2 class="card-title mb-0">
+                            <a class="text-reset text-decoration-none" href="@Url.Action("Details", "Games", new { id = game.GameId })">@game.Title</a>
+                        </h2>
+                        <p class="text-muted small mb-0">@game.Category.Name</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto pt-2">
+                            <span class="price-tag">₫@game.BasePrice.ToString("N0", culture)</span>
+                            <a class="btn btn-outline-light btn-sm" href="@Url.Action("Details", "Games", new { id = game.GameId })">View</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+}

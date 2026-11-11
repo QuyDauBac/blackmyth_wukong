@@ -1,0 +1,90 @@
+﻿@model WukongWeb.Models.ViewModels.AdminOrdersViewModel
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+    <div>
+        <p class="eyebrow text-uppercase small text-muted mb-1">Sales history</p>
+        <h1 class="h3 mb-0">Orders</h1>
+    </div>
+    <span class="text-muted small">@Model.Orders.TotalCount order(s)</span>
+</div>
+
+<form method="get" action="@Url.Action("Orders", "Admin")" class="card p-3 mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-sm-6 col-md-4">
+            <label class="form-label" for="q">Search</label>
+            <input class="form-control" id="q" name="q" value="@Model.Query" placeholder="Email, customer or status">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-warning">Search</button>
+            <a class="btn btn-outline-light" href="@Url.Action("Orders", "Admin")">Reset</a>
+        </div>
+    </div>
+</form>
+
+<div class="card p-3 p-md-4">
+    <div class="table-responsive">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr><th>Order</th><th>Customer</th><th>Date</th><th>Status</th><th>Payment</th><th class="text-end">Total</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders.Items)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("Receipt", "Checkout", new { id = order.OrderId })">#@order.OrderId</a></td>
+                        <td>
+                            <div>@order.User.DisplayName</div>
+                            <small class="text-muted">@order.User.Email</small>
+                        </td>
+                        <td>@order.OrderDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            @using (Html.BeginForm("OrderStatus", "Admin", new { id = order.OrderId }, FormMethod.Post, new { @class = "d-flex align-items-center gap-1" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <select class="form-select form-select-sm" name="status" aria-label="Status for order #@order.OrderId">
+                                    @foreach (var status in new[] { "Pending", "Paid", "Cancelled", "Refunded" })
+                                    {
+                                        <option value="@status" selected="@(order.Status == status ? "selected" : null)">@status</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-outline-light btn-sm">Save</button>
+                            }
+                        </td>
+                        <td>@order.PaymentMethod</td>
+                        <td class="text-end price-tag">₫@order.TotalAmount.ToString("N0", culture)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (!Model.Orders.Items.Any())
+    {
+        <p class="text-muted mb-0 mt-3">No orders match the search.</p>
+    }
+
+    @if (Model.Orders.TotalPages > 1)
+    {
+        <nav class="mt-3" aria-label="Order pages">
+            <ul class="pagination pagination-sm mb-0">
+                <li class="page-item @(Model.Orders.HasPrevious ? "" : "disabled")">
+                    <a class="page-link" href="@Url.Action("Orders", "Admin", new { q = Model.Query, page = Model.Orders.Page - 1 })">Previous</a>
+                </li>
+                @for (var page = 1; page <= Model.Orders.TotalPages; page++)
+                {
+                    <li class="page-item @(page == Model.Orders.Page ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Orders", "Admin", new { q = Model.Query, page = page })">@page</a>
+                    </li>
+                }
+                <li class="page-item @(Model.Orders.HasNext ? "" : "disabled")">
+                    <a class="page-link" href="@Url.Action("Orders", "Admin", new { q = Model.Query, page = Model.Orders.Page + 1 })">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

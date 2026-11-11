@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WukongWeb.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="WukongWebModelsStoreContainer">
+    <EntitySet Name="Awards" EntityType="WukongWeb.Models.Store.Awards" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="WukongWeb.Models.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Editions" EntityType="WukongWeb.Models.Store.Editions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Games" EntityType="WukongWeb.Models.Store.Games" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MediaAssets" EntityType="WukongWeb.Models.Store.MediaAssets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewsletterSubscribers" EntityType="WukongWeb.Models.Store.NewsletterSubscribers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderDetails" EntityType="WukongWeb.Models.Store.OrderDetails" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="WukongWeb.Models.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reviews" EntityType="WukongWeb.Models.Store.Reviews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="WukongWeb.Models.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="WukongWeb.Models.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Wishlists" EntityType="WukongWeb.Models.Store.Wishlists" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Awards_Games" Association="WukongWeb.Models.Store.FK_Awards_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Awards" EntitySet="Awards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Editions_Games" Association="WukongWeb.Models.Store.FK_Editions_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Editions" EntitySet="Editions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Games_Categories" Association="WukongWeb.Models.Store.FK_Games_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MediaAssets_Games" Association="WukongWeb.Models.Store.FK_MediaAssets_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="MediaAssets" EntitySet="MediaAssets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Editions" Association="WukongWeb.Models.Store.FK_OrderDetails_Editions">
+      <End Role="Editions" EntitySet="Editions" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Orders" Association="WukongWeb.Models.Store.FK_OrderDetails_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Users" Association="WukongWeb.Models.Store.FK_Orders_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Games" Association="WukongWeb.Models.Store.FK_Reviews_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Users" Association="WukongWeb.Models.Store.FK_Reviews_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="WukongWeb.Models.Store.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wishlists_Games" Association="WukongWeb.Models.Store.FK_Wishlists_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Wishlists" EntitySet="Wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wishlists_Users" Association="WukongWeb.Models.Store.FK_Wishlists_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Wishlists" EntitySet="Wishlists" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Awards">
+    <Key>
+      <PropertyRef Name="AwardId" />
+    </Key>
+    <Property Name="AwardId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="120" />
+    <Property Name="AwardYear" Type="int" Nullable="false" />
+    <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+    <Property Name="GameId" Type="int" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="Slug" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="Editions">
+    <Key>
+      <PropertyRef Name="EditionId" />
+    </Key>
+    <Property Name="EditionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Games">
+    <Key>
+      <PropertyRef Name="GameId" />
+    </Key>
+    <Property Name="GameId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="160" />
+    <Property Name="Slug" Type="nvarchar" Nullable="false" MaxLength="160" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Developer" Type="nvarchar" Nullable="false" MaxLength="120" />
+    <Property Name="Publisher" Type="nvarchar" Nullable="false" MaxLength="120" />
+    <Property Name="ReleaseDate" Type="date" />
+    <Property Name="BasePrice" Type="decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="CoverImage" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedAtUtc" Type="datetime2" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="MediaAssets">
+    <Key>
+      <PropertyRef Name="MediaId" />
+    </Key>
+    <Property Name="MediaId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="120" />
+    <Property Name="MediaType" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Url" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="SortOrder" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewsletterSubscribers">
+    <Key>
+      <PropertyRef Name="SubscriberId" />
+    </Key>
+    <Property Name="SubscriberId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="254" />
+    <Property Name="SubscribedAtUtc" Type="datetime2" Nullable="false" Precision="0" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="EditionId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Nullable="false" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime2" Nullable="false" Precision="0" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="PaymentMethod" Type="nvarchar" Nullable="false" MaxLength="40" />
+    <Property Name="TotalAmount" Type="decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="Note" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="Reviews">
+    <Key>
+      <PropertyRef Name="ReviewId" />
+    </Key>
+    <Property Name="ReviewId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Rating" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+    <Property Name="CreatedAtUtc" Type="datetime2" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="254" />
+    <Property Name="NormalizedEmail" Type="nvarchar" Nullable="false" MaxLength="254" />
+    <Property Name="DisplayName" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="PasswordHash" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedAtUtc" Type="datetime2" Nullable="false" Precision="0" />
+    <Property Name="LastLoginAtUtc" Type="datetime2" Precision="0" />
+  </EntityType>
+  <EntityType Name="Wishlists">
+    <Key>
+      <PropertyRef Name="WishlistId" />
+    </Key>
+    <Property Name="WishlistId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="GameId" Type="int" Nullable="false" />
+    <Property Name="AddedAtUtc" Type="datetime2" Nullable="false" Precision="0" />
+  </EntityType>
+  <Association Name="FK_Awards_Games">
+    <End Role="Games" Type="WukongWeb.Models.Store.Games" Multiplicity="0..1" />
+    <End Role="Awards" Type="WukongWeb.Models.Store.Awards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Awards">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Editions_Games">
+    <End Role="Games" Type="WukongWeb.Models.Store.Games" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Editions" Type="WukongWeb.Models.Store.Editions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Editions">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Games_Categories">
+    <End Role="Categories" Type="WukongWeb.Models.Store.Categories" Multiplicity="1" />
+    <End Role="Games" Type="WukongWeb.Models.Store.Games" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MediaAssets_Games">
+    <End Role="Games" Type="WukongWeb.Models.Store.Games" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MediaAssets" Type="WukongWeb.Models.Store.MediaAssets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="MediaAssets">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Editions">
+    <End Role="Editions" Type="WukongWeb.Models.Store.Editions" Multiplicity="1" />
+    <End Role="OrderDetails" Type="WukongWeb.Models.Store.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editions">
+        <PropertyRef Name="EditionId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="EditionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Orders">
+    <End Role="Orders" Type="WukongWeb.Models.Store.Orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetails" Type="WukongWeb.Models.Store.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Users">
+    <End Role="Users" Type="WukongWeb.Models.Store.Users" Multiplicity="1" />
+    <End Role="Orders" Type="WukongWeb.Models.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Games">
+    <End Role="Games" Type="WukongWeb.Models.Store.Games" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reviews" Type="WukongWeb.Models.Store.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Users">
+    <End Role="Users" Type="WukongWeb.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reviews" Type="WukongWeb.Models.Store.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="WukongWeb.Models.Store.Roles" Multiplicity="1" />
+    <End Role="Users" Type="WukongWeb.Models.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wishlists_Games">
+    <End Role="Games" Type="WukongWeb.Models.Store.Games" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Wishlists" Type="WukongWeb.Models.Store.Wishlists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Wishlists">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wishlists_Users">
+    <End Role="Users" Type="WukongWeb.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Wishlists" Type="WukongWeb.Models.Store.Wishlists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Wishlists">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

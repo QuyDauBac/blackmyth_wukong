@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WukongWeb.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="WukongEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Awards" EntityType="WukongWeb.Models.Award" />
+    <EntitySet Name="Categories" EntityType="WukongWeb.Models.Category" />
+    <EntitySet Name="Editions" EntityType="WukongWeb.Models.Edition" />
+    <EntitySet Name="Games" EntityType="WukongWeb.Models.Game" />
+    <EntitySet Name="MediaAssets" EntityType="WukongWeb.Models.MediaAsset" />
+    <EntitySet Name="NewsletterSubscribers" EntityType="WukongWeb.Models.NewsletterSubscriber" />
+    <EntitySet Name="OrderDetails" EntityType="WukongWeb.Models.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="WukongWeb.Models.Order" />
+    <EntitySet Name="Reviews" EntityType="WukongWeb.Models.Review" />
+    <EntitySet Name="Roles" EntityType="WukongWeb.Models.Role" />
+    <EntitySet Name="Users" EntityType="WukongWeb.Models.User" />
+    <EntitySet Name="Wishlists" EntityType="WukongWeb.Models.Wishlist" />
+    <AssociationSet Name="FK_Awards_Games" Association="WukongWeb.Models.FK_Awards_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Awards" EntitySet="Awards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Games_Categories" Association="WukongWeb.Models.FK_Games_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Editions_Games" Association="WukongWeb.Models.FK_Editions_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Editions" EntitySet="Editions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Editions" Association="WukongWeb.Models.FK_OrderDetails_Editions">
+      <End Role="Editions" EntitySet="Editions" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MediaAssets_Games" Association="WukongWeb.Models.FK_MediaAssets_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="MediaAssets" EntitySet="MediaAssets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Games" Association="WukongWeb.Models.FK_Reviews_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wishlists_Games" Association="WukongWeb.Models.FK_Wishlists_Games">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Wishlists" EntitySet="Wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Orders" Association="WukongWeb.Models.FK_OrderDetails_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Users" Association="WukongWeb.Models.FK_Orders_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Users" Association="WukongWeb.Models.FK_Reviews_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="WukongWeb.Models.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wishlists_Users" Association="WukongWeb.Models.FK_Wishlists_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Wishlists" EntitySet="Wishlists" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Award">
+    <Key>
+      <PropertyRef Name="AwardId" />
+    </Key>
+    <Property Name="AwardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="120" Unicode="true" FixedLength="false" />
+    <Property Name="AwardYear" Type="Int32" Nullable="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="GameId" Type="Int32" />
+    <NavigationProperty Name="Game" Relationship="WukongWeb.Models.FK_Awards_Games" FromRole="Awards" ToRole="Games" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="80" Unicode="true" FixedLength="false" />
+    <Property Name="Slug" Type="String" Nullable="false" MaxLength="80" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Games" Relationship="WukongWeb.Models.FK_Games_Categories" FromRole="Categories" ToRole="Games" />
+  </EntityType>
+  <EntityType Name="Edition">
+    <Key>
+      <PropertyRef Name="EditionId" />
+    </Key>
+    <Property Name="EditionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="Description" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Game" Relationship="WukongWeb.Models.FK_Editions_Games" FromRole="Editions" ToRole="Games" />
+    <NavigationProperty Name="OrderDetails" Relationship="WukongWeb.Models.FK_OrderDetails_Editions" FromRole="Editions" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="GameId" />
+    </Key>
+    <Property Name="GameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="160" Unicode="true" FixedLength="false" />
+    <Property Name="Slug" Type="String" Nullable="false" MaxLength="160" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Developer" Type="String" Nullable="false" MaxLength="120" Unicode="true" FixedLength="false" />
+    <Property Name="Publisher" Type="String" Nullable="false" MaxLength="120" Unicode="true" FixedLength="false" />
+    <Property Name="ReleaseDate" Type="DateTime" />
+    <Property Name="BasePrice" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="CoverImage" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedAtUtc" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Awards" Relationship="WukongWeb.Models.FK_Awards_Games" FromRole="Games" ToRole="Awards" />
+    <NavigationProperty Name="Category" Relationship="WukongWeb.Models.FK_Games_Categories" FromRole="Games" ToRole="Categories" />
+    <NavigationProperty Name="Editions" Relationship="WukongWeb.Models.FK_Editions_Games" FromRole="Games" ToRole="Editions" />
+    <NavigationProperty Name="MediaAssets" Relationship="WukongWeb.Models.FK_MediaAssets_Games" FromRole="Games" ToRole="MediaAssets" />
+    <NavigationProperty Name="Reviews" Relationship="WukongWeb.Models.FK_Reviews_Games" FromRole="Games" ToRole="Reviews" />
+    <NavigationProperty Name="Wishlists" Relationship="WukongWeb.Models.FK_Wishlists_Games" FromRole="Games" ToRole="Wishlists" />
+  </EntityType>
+  <EntityType Name="MediaAsset">
+    <Key>
+      <PropertyRef Name="MediaId" />
+    </Key>
+    <Property Name="MediaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="120" Unicode="true" FixedLength="false" />
+    <Property Name="MediaType" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="SortOrder" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Game" Relationship="WukongWeb.Models.FK_MediaAssets_Games" FromRole="MediaAssets" ToRole="Games" />
+  </EntityType>
+  <EntityType Name="NewsletterSubscriber">
+    <Key>
+      <PropertyRef Name="SubscriberId" />
+    </Key>
+    <Property Name="SubscriberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="254" Unicode="true" FixedLength="false" />
+    <Property Name="SubscribedAtUtc" Type="DateTime" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="EditionId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+    <NavigationProperty Name="Edition" Relationship="WukongWeb.Models.FK_OrderDetails_Editions" FromRole="OrderDetails" ToRole="Editions" />
+    <NavigationProperty Name="Order" Relationship="WukongWeb.Models.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="PaymentMethod" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="Note" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="OrderDetails" Relationship="WukongWeb.Models.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
+    <NavigationProperty Name="User" Relationship="WukongWeb.Models.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewId" />
+    </Key>
+    <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Rating" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedAtUtc" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Game" Relationship="WukongWeb.Models.FK_Reviews_Games" FromRole="Reviews" ToRole="Games" />
+    <NavigationProperty Name="User" Relationship="WukongWeb.Models.FK_Reviews_Users" FromRole="Reviews" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Users" Relationship="WukongWeb.Models.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="254" Unicode="true" FixedLength="false" />
+    <Property Name="NormalizedEmail" Type="String" Nullable="false" MaxLength="254" Unicode="true" FixedLength="false" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="80" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedAtUtc" Type="DateTime" Nullable="false" />
+    <Property Name="LastLoginAtUtc" Type="DateTime" />
+    <NavigationProperty Name="Orders" Relationship="WukongWeb.Models.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+    <NavigationProperty Name="Reviews" Relationship="WukongWeb.Models.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
+    <NavigationProperty Name="Role" Relationship="WukongWeb.Models.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Wishlists" Relationship="WukongWeb.Models.FK_Wishlists_Users" FromRole="Users" ToRole="Wishlists" />
+  </EntityType>
+  <EntityType Name="Wishlist">
+    <Key>
+      <PropertyRef Name="WishlistId" />
+    </Key>
+    <Property Name="WishlistId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="GameId" Type="Int32" Nullable="false" />
+    <Property Name="AddedAtUtc" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Game" Relationship="WukongWeb.Models.FK_Wishlists_Games" FromRole="Wishlists" ToRole="Games" />
+    <NavigationProperty Name="User" Relationship="WukongWeb.Models.FK_Wishlists_Users" FromRole="Wishlists" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_Awards_Games">
+    <End Role="Games" Type="WukongWeb.Models.Game" Multiplicity="0..1" />
+    <End Role="Awards" Type="WukongWeb.Models.Award" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Awards">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Games_Categories">
+    <End Role="Categories" Type="WukongWeb.Models.Category" Multiplicity="1" />
+    <End Role="Games" Type="WukongWeb.Models.Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Editions_Games">
+    <End Role="Games" Type="WukongWeb.Models.Game" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Editions" Type="WukongWeb.Models.Edition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Editions">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Editions">
+    <End Role="Editions" Type="WukongWeb.Models.Edition" Multiplicity="1" />
+    <End Role="OrderDetails" Type="WukongWeb.Models.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editions">
+        <PropertyRef Name="EditionId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="EditionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MediaAssets_Games">
+    <End Role="Games" Type="WukongWeb.Models.Game" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MediaAssets" Type="WukongWeb.Models.MediaAsset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="MediaAssets">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Games">
+    <End Role="Games" Type="WukongWeb.Models.Game" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reviews" Type="WukongWeb.Models.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wishlists_Games">
+    <End Role="Games" Type="WukongWeb.Models.Game" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Wishlists" Type="WukongWeb.Models.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Wishlists">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Orders">
+    <End Role="Orders" Type="WukongWeb.Models.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetails" Type="WukongWeb.Models.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Users">
+    <End Role="Users" Type="WukongWeb.Models.User" Multiplicity="1" />
+    <End Role="Orders" Type="WukongWeb.Models.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Users">
+    <End Role="Users" Type="WukongWeb.Models.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reviews" Type="WukongWeb.Models.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="WukongWeb.Models.Role" Multiplicity="1" />
+    <End Role="Users" Type="WukongWeb.Models.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wishlists_Users">
+    <End Role="Users" Type="WukongWeb.Models.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Wishlists" Type="WukongWeb.Models.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Wishlists">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

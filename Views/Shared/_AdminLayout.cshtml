@@ -1,0 +1,68 @@
+﻿@using System.Web.Optimization
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080807">
+    <title>@(ViewBag.Title ?? "Administration") — Wukong Admin</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/site-admin.css")?v=4">
+    @RenderSection("styles", required: false)
+</head>
+<body class="admin-body">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <a class="admin-brand" href="@Url.Action("Index", "Admin")">
+                <span class="brand-mark">悟空</span>
+                <span>WUKONG<br><small>ADMIN CONSOLE</small></span>
+            </a>
+            <nav class="nav flex-column admin-nav">
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")" href="@Url.Action("Index", "Admin")">Dashboard</a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().StartsWith("Game") ? "active" : "")" href="@Url.Action("Games", "Admin")">Games</a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Orders" ? "active" : "")" href="@Url.Action("Orders", "Admin")">Orders</a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().StartsWith("User") ? "active" : "")" href="@Url.Action("Users", "Admin")">Accounts</a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Reviews" ? "active" : "")" href="@Url.Action("Reviews", "Admin")">Reviews</a>
+                <hr />
+                <a class="nav-link" href="@Url.Action("Index", "Home")">View public site</a>
+                <a class="nav-link" href="@Url.Action("Index", "Games")">Catalogue</a>
+            </nav>
+        </aside>
+        <div class="admin-main">
+            <header class="admin-topbar">
+                <div>
+                    <span class="text-uppercase small text-muted">Signed in as</span>
+                    <strong class="ms-2">@User.Identity.Name</strong>
+                    <span class="badge bg-warning text-dark ms-2">Admin</span>
+                </div>
+                @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @class = "d-inline" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-outline-light btn-sm">Sign out</button>
+                }
+            </header>
+            <main class="admin-content">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["Message"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery-3.7.0.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.bundle.min.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

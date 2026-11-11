@@ -1,0 +1,89 @@
+﻿@using System.Web.Optimization
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080807">
+    <title>@(ViewBag.Title ?? "Black Myth: Wukong Study") — Black Myth: Wukong Study</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/site-admin.css")?v=4">
+    @RenderSection("styles", required: false)
+</head>
+<body class="public-body">
+    <nav class="navbar navbar-expand-lg navbar-dark public-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <span class="brand-mark">悟空</span>
+                <span class="brand-text">WUKONG <small>STUDY EDITION</small></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#publicNav" aria-controls="publicNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="publicNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Games")">Catalogue</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Wishlist", "Games")">Wishlist</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Profile", "Account")">My account</a></li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item"><a class="nav-link text-warning" href="@Url.Action("Index", "Admin")">Admin</a></li>
+                    }
+                </ul>
+                <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <span class="navbar-text me-3">@User.Identity.Name</span>
+                        </li>
+                        <li class="nav-item">
+                            @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @class = "d-inline" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-outline-light btn-sm">Sign out</button>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Account")">Log in</a></li>
+                        <li class="nav-item"><a class="btn btn-warning btn-sm ms-lg-2" href="@Url.Action("Register", "Account")">Create account</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["Message"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="public-footer">
+        <div class="container d-flex flex-wrap justify-content-between gap-2">
+            <span>BLACK MYTH: WUKONG · STUDY PROJECT</span>
+            <span>ASP.NET MVC 5 · Entity Framework 6 Database First · LINQ</span>
+        </div>
+    </footer>
+
+    <script src="@Url.Content("~/Scripts/jquery-3.7.0.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.bundle.min.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

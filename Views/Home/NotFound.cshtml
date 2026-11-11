@@ -1,0 +1,25 @@
+@{
+    ViewBag.Title = "Page not found";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-8 col-xl-7">
+        <div class="card p-4 p-md-5 text-center">
+            <p class="eyebrow text-uppercase small text-muted mb-2">Error 404</p>
+            <h1 class="display-6 mb-3">This path leads <em class="text-warning">nowhere.</em></h1>
+            <p class="text-muted mb-4">
+                The page you asked for does not exist, or the record behind it was removed.
+                Check the address, or pick a direction below.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home")">Back to the landing page</a>
+                <a class="btn btn-outline-light" href="@Url.Action("Index", "Games")">Browse the catalogue</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-outline-light" href="@Url.Action("Profile", "Account")">My account</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

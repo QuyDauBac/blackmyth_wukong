@@ -1,0 +1,243 @@
+/* Bootstrap-based surfaces for the MVC pages (admin, account, catalogue, receipt).
+   The cinematic landing page keeps its own styles.css and is not affected by this file. */
+
+:root {
+    --wk-ink: #080807;
+    --wk-panel: #141411;
+    --wk-panel-2: #1b1a16;
+    --wk-paper: #e8dfcc;
+    --wk-muted: #a7a294;
+    --wk-gold: #e7c98e;
+    --wk-gold-soft: rgba(231, 201, 142, .14);
+    --wk-rule: rgba(232, 223, 204, .18);
+    --wk-rust: #8e3028;
+}
+
+body.public-body,
+body.admin-body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 80% -10%, rgba(142, 48, 40, .18), transparent 55%),
+        radial-gradient(ellipse at 0% 100%, rgba(201, 166, 110, .08), transparent 50%),
+        var(--wk-ink);
+    color: var(--wk-paper);
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+a { color: var(--wk-gold); }
+a:hover { color: #f3dcb4; }
+
+/* ---------- public navbar ---------- */
+.public-navbar {
+    background: rgba(8, 8, 7, .94);
+    border-bottom: 1px solid var(--wk-rule);
+    backdrop-filter: blur(8px);
+}
+.public-navbar .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    color: var(--wk-paper);
+}
+.brand-mark {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.6rem;
+    border: 1px solid rgba(181, 66, 56, .8);
+    color: #c95043;
+    font-family: "Crimson Pro", Georgia, serif;
+    font-size: 1rem;
+    writing-mode: vertical-rl;
+}
+.brand-text {
+    font-family: "Crimson Pro", Georgia, serif;
+    font-size: 1.05rem;
+    letter-spacing: .12em;
+    line-height: 1;
+}
+.brand-text small {
+    display: block;
+    margin-top: .2rem;
+    color: var(--wk-muted);
+    font-family: Arial, sans-serif;
+    font-size: .52rem;
+    letter-spacing: .18em;
+}
+.public-navbar .nav-link { color: #c9c3b6; }
+.public-navbar .nav-link:hover,
+.public-navbar .nav-link.active { color: var(--wk-gold); }
+
+/* ---------- public footer ---------- */
+.public-footer {
+    margin-top: 3rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--wk-rule);
+    color: var(--wk-muted);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+/* ---------- cards, tables, forms ---------- */
+.card,
+.game-card {
+    background: linear-gradient(160deg, var(--wk-panel), #0e0e0c);
+    border: 1px solid var(--wk-rule);
+    border-radius: .35rem;
+    color: var(--wk-paper);
+}
+.game-card { overflow: hidden; transition: transform .2s, border-color .2s; height: 100%; }
+.game-card:hover { transform: translateY(-3px); border-color: rgba(231, 201, 142, .55); }
+.game-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; filter: saturate(.85); }
+.game-card .card-body { display: flex; flex-direction: column; gap: .5rem; }
+.game-card .card-title { font-family: "Crimson Pro", Georgia, serif; font-size: 1.35rem; letter-spacing: .02em; }
+.price-tag { color: var(--wk-gold); font-weight: 600; }
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--wk-paper);
+    --bs-table-border-color: var(--wk-rule);
+    --bs-table-striped-bg: rgba(255, 255, 255, .025);
+    --bs-table-hover-bg: rgba(231, 201, 142, .06);
+    /* Bootstrap defaults the stripe/hover text to #000, which is invisible
+       on this dark theme; keep the same ink as the rest of the table. */
+    --bs-table-striped-color: var(--wk-paper);
+    --bs-table-hover-color: var(--wk-paper);
+    vertical-align: middle;
+}
+.table thead th {
+    color: var(--wk-muted);
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    background-color: #0f0f0d;
+    border-color: rgba(232, 223, 204, .22);
+    color: var(--wk-paper);
+}
+.form-control:focus,
+.form-select:focus {
+    background-color: #0f0f0d;
+    border-color: var(--wk-gold);
+    color: var(--wk-paper);
+    box-shadow: 0 0 0 .2rem rgba(231, 201, 142, .16);
+}
+.form-control::placeholder { color: #6f6d66; }
+.form-label { color: #c9c3b6; font-size: .8rem; letter-spacing: .04em; }
+.text-muted { color: var(--wk-muted) !important; }
+
+.btn-warning {
+    background: var(--wk-gold);
+    border-color: var(--wk-gold);
+    color: #17120d;
+    font-weight: 600;
+}
+.btn-warning:hover,
+.btn-warning:focus {
+    background: #f3dcb4;
+    border-color: #f3dcb4;
+    color: #17120d;
+}
+.btn-outline-light { border-color: rgba(232, 223, 204, .45); }
+
+.badge.bg-warning { background: var(--wk-gold) !important; color: #17120d !important; }
+
+/* ---------- auth pages ---------- */
+.auth-wrap { max-width: 480px; margin: 2.5rem auto 1rem; }
+.auth-card {
+    padding: clamp(1.5rem, 4vw, 2.4rem);
+    border: 1px solid rgba(201, 166, 110, .38);
+    border-radius: .4rem;
+    background: radial-gradient(ellipse at 75% 0%, #2b2219, #101110 58%);
+    box-shadow: 0 1.2rem 4rem rgba(0, 0, 0, .45);
+}
+.auth-card h1 {
+    font-family: "Crimson Pro", Georgia, serif;
+    font-size: clamp(2rem, 6vw, 2.7rem);
+    line-height: 1;
+}
+.auth-card h1 em { color: var(--wk-gold); font-style: normal; }
+
+/* ---------- admin shell ---------- */
+.admin-shell { display: flex; min-height: 100vh; }
+.admin-sidebar {
+    width: 240px;
+    flex: 0 0 240px;
+    padding: 1.25rem 1rem;
+    background: #0c0c0a;
+    border-right: 1px solid var(--wk-rule);
+}
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin-bottom: 1.5rem;
+    color: var(--wk-paper);
+    font-family: "Crimson Pro", Georgia, serif;
+    font-size: .95rem;
+    letter-spacing: .12em;
+    text-decoration: none;
+}
+.admin-brand small { color: var(--wk-muted); font-family: Arial, sans-serif; font-size: .5rem; letter-spacing: .18em; }
+.admin-nav .nav-link {
+    padding: .55rem .75rem;
+    margin-bottom: .2rem;
+    border-radius: .3rem;
+    color: #b9b3a5;
+    font-size: .88rem;
+}
+.admin-nav .nav-link:hover { background: rgba(255, 255, 255, .04); color: var(--wk-paper); }
+.admin-nav .nav-link.active { background: var(--wk-gold-soft); color: var(--wk-gold); }
+.admin-nav hr { border-color: var(--wk-rule); opacity: 1; }
+
+.admin-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--wk-rule);
+    background: rgba(8, 8, 7, .7);
+}
+.admin-content { padding: 1.5rem; }
+
+.stat-card {
+    height: 100%;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--wk-rule);
+    border-radius: .35rem;
+    background: linear-gradient(160deg, var(--wk-panel), #0e0e0c);
+}
+.stat-card .stat-label {
+    color: var(--wk-muted);
+    font-size: .66rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+.stat-card .stat-value {
+    margin-top: .35rem;
+    font-family: "Crimson Pro", Georgia, serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--wk-gold);
+}
+
+/* ---------- review stars ---------- */
+.stars { color: var(--wk-gold); letter-spacing: .12em; }
+.rating-summary { display: flex; align-items: baseline; gap: .5rem; }
+.rating-summary strong { font-family: "Crimson Pro", Georgia, serif; font-size: 2.4rem; color: var(--wk-gold); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+    .admin-shell { flex-direction: column; }
+    .admin-sidebar { width: 100%; flex-basis: auto; border-right: 0; border-bottom: 1px solid var(--wk-rule); }
+    .admin-nav { flex-direction: row !important; flex-wrap: wrap; }
+    .admin-nav .nav-link { margin-right: .25rem; }
+    .admin-nav hr { display: none; }
+}

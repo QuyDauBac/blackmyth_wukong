@@ -1,0 +1,83 @@
+﻿@model WukongWeb.Models.ViewModels.ReceiptViewModel
+@{
+    ViewBag.Title = "Receipt #" + Model.Order.OrderId;
+    Layout = "~/Views/Shared/_CheckoutLayout.cshtml";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="checkout-shell">
+    <header class="checkout-topbar">
+        <a class="checkout-brand" href="@Url.Action("Index", "Home")" aria-label="Back to home">
+            <img src="@Url.Content("~/assets/img_logo_gs_EN.983d748d.png")" alt="Game Science"><span>STUDY EDITION</span>
+        </a>
+        <a class="checkout-back" href="@Url.Action("Index", "Home")">← <span>Back to the journey</span></a>
+    </header>
+
+    <main class="checkout-layout">
+        <section class="checkout-main" aria-labelledby="receipt-title">
+            <p class="eyebrow">Demo order saved</p>
+            <h1 id="receipt-title">Your journey <em>begins.</em></h1>
+            <p class="checkout-lead">Order #@Model.Order.OrderId was recorded in SQL Server on @Model.Order.OrderDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm").</p>
+
+            <div class="checkout-receipt" style="display:block">
+                <span class="checkout-receipt__seal" aria-hidden="true">✓</span>
+                <dl>
+                    <div><dt>Customer</dt><dd>@Model.User.DisplayName</dd></div>
+                    <div><dt>Email</dt><dd>@Model.User.Email</dd></div>
+                    <div><dt>Status</dt><dd>@Model.Order.Status · @Model.Order.PaymentMethod</dd></div>
+                    <div><dt>Order number</dt><dd>#@Model.Order.OrderId</dd></div>
+                </dl>
+
+                <div class="table-responsive mt-4">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr><th>Item</th><th>Edition</th><th class="text-end">Unit price</th><th class="text-end">Qty</th><th class="text-end">Line total</th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var line in Model.Details)
+                            {
+                                <tr>
+                                    <td>@line.Edition.Game.Title</td>
+                                    <td>@line.Edition.Name</td>
+                                    <td class="text-end">₫@line.UnitPrice.ToString("N0", culture)</td>
+                                    <td class="text-end">@line.Quantity</td>
+                                    <td class="text-end">₫@((line.UnitPrice * line.Quantity).ToString("N0", culture))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" class="text-end">Total</th>
+                                <th class="text-end price-tag">₫@Model.Order.TotalAmount.ToString("N0", culture)</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <a class="checkout-back-home" href="@Url.Action("Index", "Home")">Return to the website</a>
+                    <a class="checkout-back-home" href="@Url.Action("Profile", "Account")">View all orders</a>
+                </div>
+            </div>
+        </section>
+
+        <aside class="order-card" aria-label="Order summary">
+            <div class="order-card__image">
+                <img src="@Url.Content("~/assets/img_art_video_1.431a2a74.png")" alt="Black Myth: Wukong game artwork">
+                <span>THE DESTINED ONE</span>
+            </div>
+            <div class="order-card__body">
+                <p class="eyebrow">Order summary</p>
+                <h2>Black Myth:<br><em>Wukong</em></h2>
+                <p class="order-edition">Demo purchase · Digital</p>
+                <div class="order-line order-line--total"><span>Total paid</span><strong>₫@Model.Order.TotalAmount.ToString("N0", culture)</strong></div>
+                <p class="order-note">This receipt is part of a web programming study project. No real payment was collected.</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="checkout-footer">
+        <span>BLACK MYTH: WUKONG · STUDY PROJECT</span>
+        <a href="@Url.Action("Index", "Home")">Return to home</a>
+    </footer>
+</div>
